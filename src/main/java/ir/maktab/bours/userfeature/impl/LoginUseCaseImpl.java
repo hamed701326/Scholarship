@@ -16,7 +16,7 @@ public class LoginUseCaseImpl implements LoginUseCase {
         DataStore dataStore=new DataStore();
         try {
             Connection connection = dataStore.createConnection();
-            String sql = "select id, user_name, password, role from user where " +
+            String sql = "select * from user where " +
                     " user_name = ? and password = ? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, username);
@@ -27,7 +27,8 @@ public class LoginUseCaseImpl implements LoginUseCase {
                         resultSet.getString("user_name"),
                         resultSet.getString("password"),
                         resultSet.getString("role"),
-                        resultSet.getInt("id")
+                        resultSet.getInt("id"),
+                        resultSet.getInt("national_id")
                 );
                 AuthenticationService.getInstance().setLoginUser(user);
                 return user;

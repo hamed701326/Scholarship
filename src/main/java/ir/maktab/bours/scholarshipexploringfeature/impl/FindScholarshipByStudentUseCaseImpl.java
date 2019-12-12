@@ -38,7 +38,7 @@ public class FindScholarshipByStudentUseCaseImpl
                                 new BasicInformation(
                                         rs.getString("first_name"),
                                         rs.getString("last_name"),
-                                        rs.getLong("national_id")
+                                        rs.getInt("national_id")
                                 ),
                                 new Degree(
                                         rs.getString("last_university"),
@@ -52,6 +52,7 @@ public class FindScholarshipByStudentUseCaseImpl
                                         null,
                                         rs.getString("destination_field")
                                 ));
+                            scholarship.setId(rs.getInt("scholar_id"));
                         result.add(scholarship);
                     }
                 } catch (SQLException e) {

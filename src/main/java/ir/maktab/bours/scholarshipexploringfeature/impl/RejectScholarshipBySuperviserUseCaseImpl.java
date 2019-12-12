@@ -28,8 +28,8 @@ public class RejectScholarshipBySuperviserUseCaseImpl implements RejectScholarsh
                         "" + loginUser.getId() + "" +
                         "," + idScholarship + ")";
                 // update status
-                String sql1 = "update scholarship set status='RejectedBySuperviser'" +
-                        " where scholar_id=" + idScholarship+" and status='RequestedBySuperviser'";
+                String sql1 = "update scholarship set status='RejectBySuperviser'" +
+                        " where scholar_id=" + idScholarship+" and status='RequestedByStudent'";
                 try {
                     connection = dataStore.createConnection();
                     stmt = connection.createStatement();

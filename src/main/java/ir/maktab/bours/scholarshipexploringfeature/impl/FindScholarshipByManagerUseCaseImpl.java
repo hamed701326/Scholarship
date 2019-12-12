@@ -27,7 +27,7 @@ public class FindScholarshipByManagerUseCaseImpl implements FindScholarshipByMan
                 try {
                     connection =dataStore.createConnection() ;
                     // query
-                    String sql = "select * from scholarship where status = 'AcceptedBySuperviser' ";
+                    String sql = "select * from scholarship where status = 'AcceptBySuperviser' ";
                     // result
                     PreparedStatement preparedStatement = connection.prepareStatement(sql);
                     ResultSet rs = preparedStatement.executeQuery();
@@ -36,7 +36,7 @@ public class FindScholarshipByManagerUseCaseImpl implements FindScholarshipByMan
                                 new BasicInformation(
                                         rs.getString("first_name"),
                                         rs.getString("last_name"),
-                                        rs.getLong("national_id")
+                                        rs.getInt("national_id")
                                 ),
                                 new Degree(
                                         rs.getString("last_university"),
@@ -50,6 +50,7 @@ public class FindScholarshipByManagerUseCaseImpl implements FindScholarshipByMan
                                         null,
                                         rs.getString("destination_field")
                                 ));
+                        scholarship.setId(rs.getInt("scholar_id"));
                         result.add(scholarship);
                     }
                 } catch (SQLException e) {

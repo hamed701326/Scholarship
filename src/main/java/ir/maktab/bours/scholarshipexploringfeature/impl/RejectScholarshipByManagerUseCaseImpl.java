@@ -22,12 +22,12 @@ public class RejectScholarshipByManagerUseCaseImpl implements RejectScholarshipB
 
                 // insert into  scholarship log
                 String sql = "insert into scholarship_log(action,date,user_id,fk_scholarship)" +
-                        " values('RejectScholarshipByManager'," +
+                        " values('RejectByManager'," +
                         "now()," +
                         "" + loginUser.getId() + "" +
                         "," + idScholarship + ")";
                 // update status
-                String sql1 = "update scholarship set status='RejectedByManager'" +
+                String sql1 = "update scholarship set status='RejectByManager'" +
                         " where scholar_id=" + idScholarship+" and status='AcceptedBySuperviser' ";
                 try {
                     connection = dataStore.createConnection();

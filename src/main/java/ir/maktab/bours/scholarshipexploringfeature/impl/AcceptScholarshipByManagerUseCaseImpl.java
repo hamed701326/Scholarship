@@ -22,19 +22,19 @@ public class AcceptScholarshipByManagerUseCaseImpl implements AcceptScholarshipB
 
                 // insert into  scholarship log
                 String sql = "insert into scholarship_log(action,date,user_id,fk_scholarship)" +
-                        " values('AcceptScholarshipByManager'," +
+                        " values('AcceptByManager'," +
                         "now()," +
                         "" + loginUser.getId() + "" +
                         "," + idScholarship + ")";
                 // update status
-                String sql1 = "update scholarship set status='AcceptedByManager'" +
+                String sql1 = "update scholarship set status='AcceptByManager'" +
                         " where scholar_id=" + idScholarship;
                 try {
                     connection = dataStore.createConnection();
                     stmt = connection.createStatement();
-                    if (stmt.execute(sql))
+                    if (stmt.executeUpdate(sql)!=0)
                         System.out.println("Accept Scholarship by Manager inserted into scholarship log.");
-                    if (stmt.execute(sql1)) System.out.println("status updated for scholar with id=" + idScholarship);
+                    if (stmt.executeUpdate(sql1)!=0) System.out.println("status updated for scholar with id=" + idScholarship);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {

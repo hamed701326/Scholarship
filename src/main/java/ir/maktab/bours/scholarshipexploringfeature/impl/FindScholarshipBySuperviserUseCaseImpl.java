@@ -22,13 +22,13 @@ public class FindScholarshipBySuperviserUseCaseImpl implements FindScholarshipBy
         User loginUser = AuthenticationService.getInstance().getLoginUser();
         List<Scholarship> result = new ArrayList<Scholarship>();
         if (loginUser != null) {
-            if (loginUser.getRole().equals("Supervisor")) {
+            if (loginUser.getRole().equals("Superviser")) {
                 // connection
                 Connection connection = null;
                 try {
                     connection =dataStore.createConnection() ;
                     // query
-                    String sql = "select * from scholarship where status = 'RequestedByStudent' ";
+                    String sql = "select * from scholarship where status = 'RequestByStudent' ";
                     // result
                     PreparedStatement preparedStatement = connection.prepareStatement(sql);
                     ResultSet rs = preparedStatement.executeQuery();
@@ -37,7 +37,7 @@ public class FindScholarshipBySuperviserUseCaseImpl implements FindScholarshipBy
                                 new BasicInformation(
                                         rs.getString("first_name"),
                                         rs.getString("last_name"),
-                                        rs.getLong("national_id")
+                                        rs.getInt("national_id")
                                 ),
                                 new Degree(
                                         rs.getString("last_university"),
@@ -51,6 +51,7 @@ public class FindScholarshipBySuperviserUseCaseImpl implements FindScholarshipBy
                                         null,
                                         rs.getString("destination_field")
                                 ));
+                        scholarship.setId(rs.getInt("scholar_id"));
                         result.add(scholarship);
                     }
                 } catch (SQLException e) {

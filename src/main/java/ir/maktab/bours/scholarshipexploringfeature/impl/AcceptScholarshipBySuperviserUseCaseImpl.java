@@ -18,23 +18,23 @@ public class AcceptScholarshipBySuperviserUseCaseImpl implements AcceptScholarsh
         Statement stmt=null;
         User loginUser = AuthenticationService.getInstance().getLoginUser();
         if (loginUser != null) {
-            if (loginUser.getRole().equals("Supervisor")) {
+            if (loginUser.getRole().equals("Superviser")) {
 
                 // insert into  scholarship log
                 String sql = "insert into scholarship_log(action,date,user_id,fk_scholarship)" +
-                        " values('AcceptScholarshipBySuperviser'," +
+                        " values('AcceptBySuperviser'," +
                         "now()," +
                         "" + loginUser.getId() + "" +
                         "," + idScholarship + ")";
                 // update status
-                String sql1 = "update scholarship set status='AcceptedBySuperviser'" +
+                String sql1 = "update scholarship set status='AcceptBySuperviser'" +
                         " where scholar_id=" + idScholarship;
                 try {
                     connection = dataStore.createConnection();
                     stmt = connection.createStatement();
-                    if (stmt.execute(sql))
+                    if (stmt.executeUpdate(sql)!=0)
                         System.out.println("Accept Scholarship by Superviser inserted into scholarship log.");
-                    if (stmt.execute(sql1)) System.out.println("status updated for scholar with id=" + idScholarship);
+                    if (stmt.executeUpdate(sql1)!=0) System.out.println("status updated for scholar with id=" + idScholarship);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 } finally {
